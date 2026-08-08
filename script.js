@@ -801,7 +801,7 @@ window.onload = () => {
    🐇 ARG — ARCHIVE DU LAPIN BLANC
 ===================================================== */
 
-const RABBIT_FINAL_CODE = "Q7M-2K9-X4P-8L";
+const RABBIT_FINAL_CODE = null;
 
 const rabbitCode = document.getElementById("rabbitCode");
 const rabbitAccess = document.getElementById("rabbitAccess");
@@ -836,42 +836,17 @@ function normalizeRabbitCode(value){
 
 function verifyRabbitCode(){
 
-    const entered =
-        normalizeRabbitCode(rabbitCode.value);
+    rabbitStatus.textContent =
+        "STATUS: ARCHIVE LOCKED";
 
-    if(!entered){
+    rabbitStatus.style.color =
+        "#ff0033";
 
-        rabbitStatus.textContent =
-            "STATUS: ENTER A CODE";
+    rabbitCode.classList.remove("rabbit-error");
 
-        rabbitStatus.style.color =
-            "#ff0033";
+    void rabbitCode.offsetWidth;
 
-        return;
-    }
-
-
-    if(entered !== RABBIT_FINAL_CODE){
-
-        rabbitStatus.textContent =
-            "ACCESS DENIED";
-
-        rabbitStatus.style.color =
-            "#ff0033";
-
-        rabbitCode.classList.remove("rabbit-error");
-
-        void rabbitCode.offsetWidth;
-
-        rabbitCode.classList.add("rabbit-error");
-
-        rabbitCode.value = "";
-
-        return;
-    }
-
-
-    startRabbitSequence();
+    rabbitCode.classList.add("rabbit-error");
 
 }
 
