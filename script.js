@@ -72,7 +72,7 @@ for(let j = 1; j <= nbJoueurs; j++){
     if(j === 1) playerName = "Grainut";
     if(j === 2) playerName = "Numb";
     if(j === 3) playerName = "Loic";
-    i
+    
 
 }
 else if(i === 2){
