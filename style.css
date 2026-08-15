@@ -433,25 +433,23 @@ background:rgba(255,0,51,0.08);
 }
 
 .home-banner {
-    position: relative;
     width: 100%;
     margin-top: 30px;
-    overflow: hidden;
-    border-radius: 15px;
+    text-align: center;
 }
 
 .international-img {
     width: 100%;
+    height: auto;
     display: block;
+    border-radius: 15px;
 }
 
 .dmbdr-credit {
-    position: absolute;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70%;
-    max-width: 600px;
+    width: 100%;
+    max-width: 900px;
     height: auto;
-    z-index: 5;
+    display: block;
+    margin: 15px auto 0;
+    border-radius: 12px;
 }
