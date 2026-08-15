@@ -1,4 +1,4 @@
-je let teams = [];
+let teams = [];
 let players = [];
 let matches = [];
 
@@ -1404,7 +1404,7 @@ renderStatsMenu();
 renderMatches();
 renderRanking();
 
-
+}
 
 /* =========================
    INIT
