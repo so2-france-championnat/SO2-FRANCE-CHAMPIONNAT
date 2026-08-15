@@ -95,7 +95,7 @@ else if(i === 4){
 
     if(j === 1) playerName = "Freezy";
     if(j === 2) playerName = "Youko";
-    if(j === 3) playerName = "Wanheda";
+    if(j === 3) playerName = "Wanheda_SDBT";
     
 
 }
