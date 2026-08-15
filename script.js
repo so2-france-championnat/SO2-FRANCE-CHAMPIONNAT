@@ -1,4 +1,4 @@
-let teams = [];
+je let teams = [];
 let players = [];
 let matches = [];
 
@@ -177,30 +177,352 @@ let history = [];
 }
 
 /* =========================
-   MATCHS
+   TOURNOI — ÉLIMINATION DIRECTE
+   QUARTS : ALLER + RETOUR
+   DEMIS  : ALLER + RETOUR
+   FINALE : 1 MATCH
 ========================= */
 
-for(let i = 0; i < teams.length; i++){
+matches = [
 
-    for(let j = i + 1; j < teams.length; j++){
+    /* =====================
+       QUARTS DE FINALE
+    ===================== */
 
-        // Aller
-        matches.push({
-            t1: teams[i].name,
-            t2: teams[j].name,
-            s1:0,
-            s2:0,
-            mvp:null
-        });
+    {
+        id: 1,
+        round: "QUARTS",
+        series: "QF1",
+        leg: "ALLER",
 
-        // Retour
-        matches.push({
-            t1: teams[j].name,
-            t2: teams[i].name,
-            s1:0,
-            s2:0,
-            mvp:null
-        });
+        t1: "Osaka",
+        t2: "Pelada",
+
+        s1: 0,
+        s2: 0,
+
+        mvp: null
+    },
+
+    {
+        id: 2,
+        round: "QUARTS",
+        series: "QF1",
+        leg: "RETOUR",
+
+        t1: "Pelada",
+        t2: "Osaka",
+
+        s1: 0,
+        s2: 0,
+
+        mvp: null
+    },
+
+
+    {
+        id: 3,
+        round: "QUARTS",
+        series: "QF2",
+        leg: "ALLER",
+
+        t1: "Bandacala",
+        t2: "Vicious9",
+
+        s1: 0,
+        s2: 0,
+
+        mvp: null
+    },
+
+    {
+        id: 4,
+        round: "QUARTS",
+        series: "QF2",
+        leg: "RETOUR",
+
+        t1: "Vicious9",
+        t2: "Bandacala",
+
+        s1: 0,
+        s2: 0,
+
+        mvp: null
+    },
+
+
+    {
+        id: 5,
+        round: "QUARTS",
+        series: "QF3",
+        leg: "ALLER",
+
+        t1: "Los Pinguinos",
+        t2: "Urssaf",
+
+        s1: 0,
+        s2: 0,
+
+        mvp: null
+    },
+
+    {
+        id: 6,
+        round: "QUARTS",
+        series: "QF3",
+        leg: "RETOUR",
+
+        t1: "Urssaf",
+        t2: "Los Pinguinos",
+
+        s1: 0,
+        s2: 0,
+
+        mvp: null
+    },
+
+
+    {
+        id: 7,
+        round: "QUARTS",
+        series: "QF4",
+        leg: "ALLER",
+
+        t1: "Grizzly SDBT",
+        t2: "Pornstars",
+
+        s1: 0,
+        s2: 0,
+
+        mvp: null
+    },
+
+    {
+        id: 8,
+        round: "QUARTS",
+        series: "QF4",
+        leg: "RETOUR",
+
+        t1: "Pornstars",
+        t2: "Grizzly SDBT",
+
+        s1: 0,
+        s2: 0,
+
+        mvp: null
+    },
+
+
+    /* =====================
+       DEMI-FINALES
+    ===================== */
+
+    {
+        id: 9,
+        round: "DEMIS",
+        series: "SF1",
+        leg: "ALLER",
+
+        t1: null,
+        t2: null,
+
+        s1: 0,
+        s2: 0,
+
+        mvp: null
+    },
+
+    {
+        id: 10,
+        round: "DEMIS",
+        series: "SF1",
+        leg: "RETOUR",
+
+        t1: null,
+        t2: null,
+
+        s1: 0,
+        s2: 0,
+
+        mvp: null
+    },
+
+
+    {
+        id: 11,
+        round: "DEMIS",
+        series: "SF2",
+        leg: "ALLER",
+
+        t1: null,
+        t2: null,
+
+        s1: 0,
+        s2: 0,
+
+        mvp: null
+    },
+
+    {
+        id: 12,
+        round: "DEMIS",
+        series: "SF2",
+        leg: "RETOUR",
+
+        t1: null,
+        t2: null,
+
+        s1: 0,
+        s2: 0,
+
+        mvp: null
+    },
+
+
+    /* =====================
+       GRANDE FINALE
+    ===================== */
+
+    {
+        id: 13,
+        round: "FINAL",
+        series: "FINAL",
+        leg: "FINAL",
+
+        t1: null,
+        t2: null,
+
+        s1: 0,
+        s2: 0,
+
+        mvp: null
+    }
+
+];
+
+/* =========================
+   GAGNANT D'UNE CONFRONTATION
+========================= */
+
+function getSeriesWinner(series){
+
+    let seriesMatches = matches.filter(
+        m => m.series === series
+    );
+
+    if(seriesMatches.length !== 2){
+        return null;
+    }
+
+    // Les deux matchs doivent être terminés
+    if(
+        seriesMatches[0].s1 === 0 &&
+        seriesMatches[0].s2 === 0
+    ){
+        return null;
+    }
+
+    if(
+        seriesMatches[1].s1 === 0 &&
+        seriesMatches[1].s2 === 0
+    ){
+        return null;
+    }
+
+    let teamA = seriesMatches[0].t1;
+    let teamB = seriesMatches[0].t2;
+
+    let scoreA = 0;
+    let scoreB = 0;
+
+    seriesMatches.forEach(match => {
+
+        if(match.t1 === teamA){
+            scoreA += match.s1;
+            scoreB += match.s2;
+        }
+        else{
+            scoreA += match.s2;
+            scoreB += match.s1;
+        }
+
+    });
+
+    if(scoreA > scoreB){
+        return teamA;
+    }
+
+    if(scoreB > scoreA){
+        return teamB;
+    }
+
+    return "DRAW";
+}
+
+/* =========================
+   MISE À JOUR DU BRACKET
+========================= */
+
+function updateBracket(){
+
+    /* =====================
+       QUARTS → DEMIS
+    ===================== */
+
+    let qf1 = getSeriesWinner("QF1");
+    let qf2 = getSeriesWinner("QF2");
+    let qf3 = getSeriesWinner("QF3");
+    let qf4 = getSeriesWinner("QF4");
+
+
+    /* =====================
+       DEMI-FINALE 1
+       QF1 vs QF2
+    ===================== */
+
+    if(qf1 && qf1 !== "DRAW" && qf2 && qf2 !== "DRAW"){
+
+        matches[8].t1 = qf1;
+        matches[8].t2 = qf2;
+
+        matches[9].t1 = qf2;
+        matches[9].t2 = qf1;
+
+    }
+
+
+    /* =====================
+       DEMI-FINALE 2
+       QF3 vs QF4
+    ===================== */
+
+    if(qf3 && qf3 !== "DRAW" && qf4 && qf4 !== "DRAW"){
+
+        matches[10].t1 = qf3;
+        matches[10].t2 = qf4;
+
+        matches[11].t1 = qf4;
+        matches[11].t2 = qf3;
+
+    }
+
+
+    /* =====================
+       DEMIS → FINALE
+    ===================== */
+
+    let sf1 = getSeriesWinner("SF1");
+    let sf2 = getSeriesWinner("SF2");
+
+    if(
+        sf1 &&
+        sf1 !== "DRAW" &&
+        sf2 &&
+        sf2 !== "DRAW"
+    ){
+
+        matches[12].t1 = sf1;
+        matches[12].t2 = sf2;
 
     }
 
@@ -485,156 +807,383 @@ ${t.players[3] ? `<br>🔄 ${purpleName(t.players[3])}` : ""}
 }
 
 /* =========================
-   MATCHS
+   AFFICHAGE DU TOURNOI
 ========================= */
 
 function renderMatches(){
 
-    document.getElementById("matchList").innerHTML =
-    teams.map(team => {
+    updateBracket();
 
-        let teamMatches = matches.filter(
-            m => m.t1 === team.name || m.t2 === team.name
-        );
+    let html = `
 
-        return `
-        <div class="card clickable"
-     onclick="toggleMatchTeam('${team.name}')">
+        <div class="tournament-title">
 
-    <div class="match-team-header">
+            <div class="tournament-icon">
+                🏆
+            </div>
 
-        <img src="${team.logo}" class="match-team-logo">
+            <div>
+                <h1>TOURNOI #1</h1>
+                <span>ÉLIMINATION DIRECTE</span>
+            </div>
 
-        <b>${team.name}</b>
-
-    </div>
-
-            ${openedMatchTeam === team.name ? `
-
-                <hr>
-
-                ${teamMatches.map(match => {
-
-                    let matchNumber =
-                        matches.indexOf(match) + 1;
-
-                    let s1 = "";
-                    let s2 = "";
-
-                    if(match.s1 > match.s2) s1 = "win";
-                    if(match.s2 > match.s1) s2 = "win";
-
-                    if(match.s1 < match.s2) s1 = "lose";
-                    if(match.s2 < match.s1) s2 = "lose";
-
-                   let teamWon =
-    (match.t1 === team.name && match.s1 > match.s2) ||
-    (match.t2 === team.name && match.s2 > match.s1);
-
-let resultText = "";
-
-if(match.s1 !== 0 || match.s2 !== 0){
-    resultText = teamWon ? "WIN" : "LOSS";
-}
-
-let borderColor =
-    resultText === "WIN"
-        ? "#22c55e"
-        : resultText === "LOSS"
-        ? "#ef4444"
-        : "transparent";
-
-                    return `
-<div class="card match-card" style="
-border:2px solid ${borderColor};
-box-shadow:0 0 12px ${borderColor};
-">
-
-    <div style="
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:12px;">
-
-        <div class="match-number">
-            Match ${matchNumber}
         </div>
 
-        ${
-            resultText
-            ? `<span style="
-                color:${borderColor};
-                font-weight:bold;
-                font-size:15px;">
-                ${resultText}
-               </span>`
-            : ""
+    `;
+
+
+    /* =====================
+       FONCTION CARTE MATCH
+    ===================== */
+
+    function renderMatch(match){
+
+        let pending =
+            !match.t1 ||
+            !match.t2;
+
+        let played =
+            match.s1 !== 0 ||
+            match.s2 !== 0;
+
+        let winner = null;
+
+        if(played){
+
+            if(match.s1 > match.s2){
+                winner = match.t1;
+            }
+            else if(match.s2 > match.s1){
+                winner = match.t2;
+            }
+
         }
 
-    </div>
 
-    <div class="match-row">
+        let borderColor =
+            !played
+                ? "rgba(255,255,255,.10)"
+                : winner
+                    ? "#22c55e"
+                    : "#ef4444";
 
-        <span class="team-left">
-            ${match.t1}
-        </span>
 
-        <span class="score">
-            <span class="${s1 || 'pending'}">
-                ${match.s1}
-            </span>
-            -
-            <span class="${s2 || 'pending'}">
-                ${match.s2}
-            </span>
-        </span>
+        return `
 
-        <span class="team-right">
-            ${match.t2}
-        </span>
+        <div class="card tournament-match"
+             style="
+                border:2px solid ${borderColor};
+                box-shadow:0 0 15px ${played ? borderColor : "transparent"};
+             ">
 
-    </div>
+            <div class="match-top">
 
-    ${
-match.mvp
-? `
-<hr>
+                <span class="match-label">
+                    ${match.series}
+                </span>
 
-<div style="margin-top:12px;">
+                <span class="match-leg">
+                    ${match.leg}
+                </span>
 
-    <div style="
-        font-size:18px;
-        font-weight:bold;
-        margin-bottom:6px;">
-        👑 ${purpleName(match.mvp.name)}
-    </div>
+            </div>
 
-    <div>
-        ${match.mvp.k} K •
-        ${match.mvp.a} A •
-        ${match.mvp.d} D •
 
-        <span style="
-            color:gold;
-            font-weight:bold;">
-            KD ${match.mvp.kd}
-        </span>
-    </div>
+            <div class="match-team-line">
 
-</div>
-`
-: ""
-}
+                <div class="match-team">
 
-</div>
-`;
-                }).join("")}
+                    ${
+                        match.t1
+                        ? `
+                            <img
+                                src="${
+                                    teams.find(
+                                        t => t.name === match.t1
+                                    )?.logo
+                                }"
+                                class="match-logo"
+                            >
 
-            ` : ""}
+                            <span>
+                                ${match.t1}
+                            </span>
+                        `
+                        :
+                        `
+                            <span class="tbd">
+                                TBD
+                            </span>
+                        `
+                    }
+
+                </div>
+
+
+                <div class="match-score">
+
+                    ${
+                        pending
+                        ? "VS"
+                        :
+                        `
+                        <span class="${
+                            match.s1 > match.s2
+                                ? "score-win"
+                                : match.s1 < match.s2
+                                    ? "score-lose"
+                                    : "score-normal"
+                        }">
+                            ${match.s1}
+                        </span>
+
+                        <span class="score-separator">
+                            -
+                        </span>
+
+                        <span class="${
+                            match.s2 > match.s1
+                                ? "score-win"
+                                : match.s2 < match.s1
+                                    ? "score-lose"
+                                    : "score-normal"
+                        }">
+                            ${match.s2}
+                        </span>
+                        `
+                    }
+
+                </div>
+
+
+                <div class="match-team right">
+
+                    ${
+                        match.t2
+                        ? `
+                            <span>
+                                ${match.t2}
+                            </span>
+
+                            <img
+                                src="${
+                                    teams.find(
+                                        t => t.name === match.t2
+                                    )?.logo
+                                }"
+                                class="match-logo"
+                            >
+                        `
+                        :
+                        `
+                            <span class="tbd">
+                                TBD
+                            </span>
+                        `
+                    }
+
+                </div>
+
+            </div>
+
+
+            ${
+                played && winner
+                ?
+                `
+                <div class="match-result win">
+
+                    🟢 ${winner} QUALIFIÉ
+
+                </div>
+                `
+                :
+                `
+                <div class="match-result pending">
+
+                    ⏳ ${pending ? "EN ATTENTE" : "À JOUER"}
+
+                </div>
+                `
+            }
+
+
+            ${
+                match.mvp
+                ?
+                `
+                <div class="match-mvp">
+
+                    <div class="mvp-title">
+                        👑 MVP
+                    </div>
+
+                    <b>
+                        ${purpleName(match.mvp.name)}
+                    </b>
+
+                    <div>
+                        ${match.mvp.k} K
+                        •
+                        ${match.mvp.a} A
+                        •
+                        ${match.mvp.d} D
+                        •
+                        <span class="mvp-kd">
+                            KD ${match.mvp.kd}
+                        </span>
+                    </div>
+
+                </div>
+                `
+                :
+                ""
+            }
 
         </div>
+
         `;
-    }).join("");
+
+    }
+
+
+    /* =====================
+       QUARTS
+    ===================== */
+
+    html += `
+
+        <div class="round-title">
+
+            <span>⚔️</span>
+
+            <div>
+                <b>QUARTS DE FINALE</b>
+                <small>MATCH ALLER + RETOUR</small>
+            </div>
+
+        </div>
+
+        <div class="tournament-grid">
+
+    `;
+
+    matches
+        .filter(m => m.round === "QUARTS")
+        .forEach(match => {
+
+            html += renderMatch(match);
+
+        });
+
+    html += `</div>`;
+
+
+    /* =====================
+       DEMIS
+    ===================== */
+
+    html += `
+
+        <div class="round-title">
+
+            <span>⚔️</span>
+
+            <div>
+                <b>DEMI-FINALES</b>
+                <small>MATCH ALLER + RETOUR</small>
+            </div>
+
+        </div>
+
+        <div class="tournament-grid">
+
+    `;
+
+    matches
+        .filter(m => m.round === "DEMIS")
+        .forEach(match => {
+
+            html += renderMatch(match);
+
+        });
+
+    html += `</div>`;
+
+
+    /* =====================
+       FINALE
+    ===================== */
+
+    html += `
+
+        <div class="round-title final-title">
+
+            <span>👑</span>
+
+            <div>
+                <b>GRANDE FINALE</b>
+                <small>UN SEUL MATCH</small>
+            </div>
+
+        </div>
+
+        <div class="final-container">
+
+    `;
+
+    matches
+        .filter(m => m.round === "FINAL")
+        .forEach(match => {
+
+            html += renderMatch(match);
+
+        });
+
+    html += `</div>`;
+
+
+    /* =====================
+       CHAMPION
+    ===================== */
+
+    let final = matches[12];
+
+    if(
+        final.s1 !== 0 ||
+        final.s2 !== 0
+    ){
+
+        let champion =
+            final.s1 > final.s2
+                ? final.t1
+                : final.t2;
+
+        html += `
+
+            <div class="champion-card">
+
+                <div class="champion-crown">
+                    🏆
+                </div>
+
+                <div class="champion-label">
+                    CHAMPION DU TOURNOI
+                </div>
+
+                <div class="champion-name">
+                    ${champion}
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    document.getElementById("matchList").innerHTML = html;
+
 }
 
 /* =========================
@@ -715,6 +1264,10 @@ function updateMatch(matchNumber, score1, score2, stats1, stats2){
     let match = matches[matchNumber - 1];
 
     if(!match) return;
+
+    if(!match.t1 || !match.t2){
+    return;
+}
 
     // Empêche de compter deux fois le même match
     if(match.s1 !== 0 || match.s2 !== 0){
@@ -844,11 +1397,12 @@ match.mvp = {
     kd: (best[1] / (best[3] || 1)).toFixed(2)
 };
    
-    renderPlayers();
-    renderStatsMenu();
-    renderMatches();
-    renderRanking();
-}
+    updateBracket();
+
+renderPlayers();
+renderStatsMenu();
+renderMatches();
+renderRanking();
 
 
 
