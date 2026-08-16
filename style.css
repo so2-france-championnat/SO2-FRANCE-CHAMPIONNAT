@@ -890,3 +890,56 @@ background:rgba(255,0,51,0.08);
     0 0 10px rgba(0, 120, 255, 0.35),
     inset 0 0 12px rgba(0, 120, 255, 0.08);
 }
+
+/* =========================
+   FULL WIDTH CONTENT
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+.page {
+    display: none;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 10px;
+}
+
+.page.active {
+    display: block;
+}
+
+/* Toutes les listes générées */
+
+#teamList,
+#playerList,
+#playerStats,
+#matchList,
+#rankingList {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+}
+
+/* Cartes équipes */
+
+#teamList > *,
+#playerList > *,
+#playerStats > *,
+#matchList > *,
+#rankingList > * {
+    width: 100%;
+    max-width: none;
+}
+
+/* Boutons Players */
+
+.player-nav {
+    width: 100%;
+}
+
+.player-nav button {
+    min-width: 0;
+}
