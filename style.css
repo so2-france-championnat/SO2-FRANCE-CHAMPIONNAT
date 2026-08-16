@@ -741,3 +741,121 @@ background:rgba(255,0,51,0.08);
     font-size:28px;
     font-weight:900;
 }
+
+/* =========================
+   VALHALLA SOCIALS
+========================= */
+
+.valhalla-social {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 8px 0 28px;
+}
+
+/* TITRE */
+
+.valhalla-social-title {
+  padding: 10px 24px;
+  margin-bottom: 16px;
+
+  border: 1px solid rgba(0, 140, 255, 0.55);
+  border-radius: 12px;
+
+  background: rgba(10, 20, 35, 0.75);
+
+  color: white;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
+
+  box-shadow:
+    0 0 10px rgba(0, 120, 255, 0.35),
+    inset 0 0 12px rgba(0, 120, 255, 0.08);
+}
+
+/* BOUTONS */
+
+.valhalla-social-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+}
+
+.valhalla-social button {
+  border: none;
+  border-radius: 18px;
+  padding: 16px 30px;
+  min-width: 150px;
+
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.valhalla-social button:hover {
+  transform: translateY(-3px);
+}
+
+.valhalla-social button:active {
+  transform: scale(0.96);
+}
+
+/* DISCORD */
+
+.valhalla-discord {
+  background: linear-gradient(
+    135deg,
+    #5865F2,
+    #7289DA
+  );
+
+  box-shadow:
+    0 0 12px rgba(88, 101, 242, 0.8),
+    0 0 28px rgba(88, 101, 242, 0.45);
+}
+
+/* YOUTUBE */
+
+.valhalla-youtube {
+  background: linear-gradient(
+    135deg,
+    #ff0033,
+    #ff1744
+  );
+
+  box-shadow:
+    0 0 12px rgba(255, 0, 51, 0.8),
+    0 0 28px rgba(255, 0, 51, 0.45);
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .valhalla-social-title {
+    font-size: 15px;
+    padding: 9px 18px;
+  }
+
+  .valhalla-social-buttons {
+    width: 100%;
+    gap: 12px;
+  }
+
+  .valhalla-social button {
+    min-width: 0;
+    flex: 1;
+    padding: 15px 10px;
+    font-size: 16px;
+  }
+
+}
